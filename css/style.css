@@ -1,0 +1,49 @@
+.img-inicial{
+    width: 320px;
+    height: 240px;
+}
+
+.img-final{
+    width: 800px;
+    height: 600px;
+}
+
+.img-mini{
+    width: 200px;
+    height: 150px;
+}
+.modal-xl{
+    width: 800px;
+}
+
+.chart-container {
+    height:400px
+}
+
+.btn-primary { 
+    border-color: #2FADC6;
+    background: #2FADC6; }
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #238194;
+    border-color: #238194; /*set the color you want here*/
+}
+.card-body{
+    background-color: #D0D3F1;
+}
+
+.modal-xl{
+    width: 900px;
+}
+body{
+    background-color: #E2E4F6;
+}
+
+.form-control{
+    width: auto;
+}
+
+#container-form{
+    width: 55%;
+}
