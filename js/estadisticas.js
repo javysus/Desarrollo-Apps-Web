@@ -123,13 +123,7 @@ function grafico_3(){
             responsive:true,
             maintainAspectRatio: false,
             barValueSpacing: 20,
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        min: 0,
-                    }
-                }]
-            }
+            
         }
     });
 }
