@@ -1,5 +1,6 @@
 function agrandarImagen(){
     $(".img-inicial").click(function(){
+        console.log("Click!")
         $("#imagen-modal").attr("src", $(this).attr("src"));
         $('#mostrar-imagen').modal('show');
     })

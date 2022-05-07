@@ -40,10 +40,10 @@ body{
     background-color: #E2E4F6;
 }
 
-.form-control{
+/*.form-control{
     width: auto;
-}
+}*/
 
 #container-form{
-    width: 55%;
+    width: 80%;
 }
