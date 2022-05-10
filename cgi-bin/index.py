@@ -1,9 +1,9 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import cgi
 import os
 import sys
 import re
-#import filetype
 from db import DB
 
 print("Content-type: text/html; charset=UTF-8")
