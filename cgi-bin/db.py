@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import mysql.connector
 import hashlib
 import sys

@@ -1,9 +1,9 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import cgi
 import os
 import sys
 import re
-#import filetype
 from db import DB
 
 MAX_FILE_SIZE= 100000
