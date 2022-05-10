@@ -37,7 +37,7 @@ for actividad in actividades:
 
     filas_html += fila
 
-with open('index.html','r', encoding='utf-8') as template:
+with open('../index.html','r', encoding='utf-8') as template:
     file = template.read()
     print(file.format(filas_html))
 
