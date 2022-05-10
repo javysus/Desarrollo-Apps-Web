@@ -1,8 +1,8 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import cgi
 from itertools import count
 import sys
-#import filetype
 from db import DB
 
 print("Content-type: text/html; charset=UTF-8")
