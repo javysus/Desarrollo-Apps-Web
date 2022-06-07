@@ -224,7 +224,7 @@ for valor in list_errores:
 #redes_link = {'whatsapp': "", 'telegram': "", 'twitter': "", 'instagram': "", 'facebook': "", 'tiktok': "", 'otra': ""}
 #redes_enabled = {'whatsapp': "disabled", 'telegram': "disabled", 'twitter': "disabled", 'instagram': "disabled", 'facebook': "disabled", 'tiktok': "disabled", 'otra': "disabled"}
 if(validacion):
-    with open('informar_actividad.html','r', encoding='utf-8') as template:
+    with open('../informar_actividad.html','r', encoding='utf-8') as template:
         file = template.read()
         """valores = [region, comuna, sector, nombre, email, celular]
 
@@ -272,7 +272,7 @@ else:
     else:
         data = (id_actividad, foto_actividad)
         db.guardarFotos(data)
-    with open('form_exitoso.html', 'r', encoding='utf-8') as template:
+    with open('../form_exitoso.html', 'r', encoding='utf-8') as template:
         file = template.read()
         print(file)
 """print("Validacion", validacion)

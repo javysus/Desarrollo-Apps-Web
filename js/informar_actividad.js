@@ -29,19 +29,6 @@ function agregarRegionesyComunas(){
     })
 }
 
-function obtenerDatosSubmit(){
-    $('#formulario').submit(function() {
-        event.preventDefault();
-        // get all the inputs into an array.
-        var $inputs = $('#myForm :input');
-        // your code here
-        $inputs.each(function() {
-            console.log($(this).val());
-            //values[this.name] = $(this).val();
-        });
-      });
-}
-
 function fechayHora(){
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -537,7 +524,6 @@ function validacionTiempoReal(){
 }
 $(document).ready(function(){
     agregarRegionesyComunas();
-    obtenerDatosSubmit();
     validacionTiempoReal();
     
 

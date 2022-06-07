@@ -84,10 +84,10 @@ for foto in fotos:
     foto_nombre = foto[2]
 
     fila_f = f'''<a href="#">
-                <img src="/media/{foto_hash}" class="rounded img-inicial" alt="{foto_nombre}">
+                <img src="../media/{foto_hash}" class="rounded img-inicial" alt="{foto_nombre}">
                 </a>'''
     fotos_html += fila_f
 
-with open('actividad.html','r', encoding='utf-8') as template:
+with open('../actividad.html','r', encoding='utf-8') as template:
     file = template.read()
     print(file.format(informacion_lugar, datos_organizador, contactos_html, informacion_actividad, fotos_html))

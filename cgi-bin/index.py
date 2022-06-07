@@ -31,7 +31,7 @@ for actividad in actividades:
     descripcion = actividad[8]
     tema = actividad[9]
 
-    fila += f'<th>{fecha_inicio}</th> <th>{fecha_termino}</th> <th>{comuna}</th> <th>{sector}</th> <th>{tema}</th> <th> <img src="/media/{foto_hash}" class="rounded img-mini" alt="{foto_nombre}"></th>'
+    fila += f'<th>{fecha_inicio}</th> <th>{fecha_termino}</th> <th>{comuna}</th> <th>{sector}</th> <th>{tema}</th> <th> <img src="../media/{foto_hash}" class="rounded img-mini" alt="{foto_nombre}"></th>'
 
     fila += "</tr>"
 

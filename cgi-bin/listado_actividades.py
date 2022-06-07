@@ -53,7 +53,7 @@ for actividad in firstFive:
     filas_html += fila
     i+=1
 
-with open('listado_actividades.html','r', encoding='utf-8') as template:
+with open('../listado_actividades.html','r', encoding='utf-8') as template:
     file = template.read()
     print(file.format(filas_html, paginar))
 

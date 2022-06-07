@@ -22,6 +22,6 @@ for tema in temas:
 
 options_temas += "<option value=0>otro</option>"
 
-with open('informar_actividad.html','r', encoding='utf-8') as template:
+with open('../informar_actividad.html','r', encoding='utf-8') as template:
     file = template.read()
     print(file.format(options_regiones, "","","","","","","","","",options_temas,"", ""))
