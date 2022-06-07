@@ -85,9 +85,6 @@ regiones = db.getRegiones()
 temas = db.getTemas()
 
 #Revisar datos de formulario
-print(region)
-print(nombre)
-print(tema)
 if not(region):
     options_regiones = "<option value=\"\" selected>Seleccione una región</option>"
     for region_db in regiones:
@@ -186,7 +183,7 @@ else:
 error_contactos = ""
 contactos_html = []
 redes = {'whatsapp': ["","disabled"], 'telegram':["","disabled"], 'twitter': ["","disabled"], 'instagram':["","disabled"], 'facebook':["","disabled"], 'tiktok':["","disabled"], 'otra': ["","disabled"]}
-print(contactos)
+
 if contactos != []:
     for contacto in contactos:
         redes[contacto][0] = "checked"
@@ -301,7 +298,7 @@ for valor in list_errores:
 #redes_link = {'whatsapp': "", 'telegram': "", 'twitter': "", 'instagram': "", 'facebook': "", 'tiktok': "", 'otra': ""}
 #redes_enabled = {'whatsapp': "disabled", 'telegram': "disabled", 'twitter': "disabled", 'instagram': "disabled", 'facebook': "disabled", 'tiktok': "disabled", 'otra': "disabled"}
 if(validacion):
-    with open('informar_actividad.html','r', encoding='utf-8') as template:
+    with open('../informar_actividad.html','r', encoding='utf-8') as template:
         file = template.read()
         """valores = [region, comuna, sector, nombre, email, celular]
 
@@ -369,6 +366,6 @@ else:
     else:
         data = (id_actividad, foto_actividad)
         db.guardarFotos(data)
-    with open('form_exitoso.html', 'r', encoding='utf-8') as template:
+    with open('../form_exitoso.html', 'r', encoding='utf-8') as template:
         file = template.read()
         print(file)
