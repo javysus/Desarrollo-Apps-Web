@@ -68,27 +68,74 @@ print()
 sys.stdout.reconfigure(encoding='utf-8')
 db = DB('localhost', 'cc500241_u', 'salesPertj', 'cc500241_db')
 
+form = cgi.FieldStorage()
+region = form.getvalue("region")
+comuna = form.getvalue("comuna")
+tema = form.getvalue("tema")
+sector = form.getvalue("sector")
+nombre = form.getvalue("nombre")
+email = form.getvalue("email")
+celular = form.getvalue("celular")
+contactos = form.getlist("contactar-por")
+fecha_inicio = form.getvalue("dia-hora-inicio")
+fecha_termino = form.getvalue('dia-hora-termino')
+descripcion = form.getvalue('descripcion-evento')
+
 regiones = db.getRegiones()
 temas = db.getTemas()
 
-options_regiones = ""
-options_temas = ""
+#Revisar datos de formulario
+print(region)
+print(nombre)
+print(tema)
+if not(region):
+    options_regiones = "<option value=\"\" selected>Seleccione una región</option>"
+    for region_db in regiones:
+        options_regiones += f"<option value={region_db[0]}>{region_db[1]}</option>"
+    options_comunas = "<option value=\"\" selected>Seleccione una comuna</option>"
+else:
+    options_regiones = "<option value=\"\">Seleccione una región</option>"
+    for region_db in regiones:
+        if(region_db[0] == int(region)):
+            options_regiones += f"<option value={region_db[0]} selected>{region_db[1]}</option>"
+        else:
+            options_regiones += f"<option value={region_db[0]}>{region_db[1]}</option>"
+    comunas = db.getComunas(region)
+    if not(comuna):
+        options_comunas = "<option value=\"\" selected>Seleccione una comuna</option>"
+        for comuna_db in comunas:
+            options_comunas+= f"<option value={comuna_db[0]}>{comuna_db[1]}</option>"
+    else:
+        options_comunas = "<option value=\"\" selected>Seleccione una comuna</option>"
+        for comuna_db in comunas:
+            if(comuna_db[0] == int(comuna)):
+                options_comunas+= f"<option value={comuna_db[0]} selected>{comuna_db[1]}</option>"
+            else:
+                options_comunas+= f"<option value={comuna_db[0]}>{comuna_db[1]}</option>"
 
-for region in regiones:
-    options_regiones += f"<option value= {region[0]}>{region[1]}</option>"
+if not(tema):
+    options_temas = "<option value=\"\" selected>Seleccione un tema</option>"
+    for tema_db in temas:
+        options_temas += f"<option value={tema_db[0]}>{tema_db[1]}</option>"
+else:
+    options_temas = "<option value=\"\">Seleccione un tema</option>"
+    for tema_db in temas:
+        if(tema_db[0] == int(tema)):
+            options_temas += f"<option value={tema_db[0]} selected>{tema_db[1]}</option>"
+        else:
+            options_temas += f"<option value={tema_db[0]}>{tema_db[1]}</option>"
 
-for tema in temas:
-    options_temas += f"<option value= {tema[0]}>{tema[1]}</option>"
+    if(tema=='0'):
+        options_temas += "<option value=0 selected>otro</option>"
+    else:
+        options_temas += "<option value=0>otro</option>"
 
-options_temas += "<option value=0>otro</option>"
 
-form = cgi.FieldStorage()
 validacion = False
 list_errores = []
 
 #Validar que todo lo obligatorio haya sido subido: Region, comuna, nombre,email, fecha inicio, tema y foto
-region = form.getvalue("region")
-comuna = form.getvalue("comuna")
+
 
 #Posicion 0: Region
 if not(region):
@@ -103,85 +150,115 @@ else:
     list_errores.append("")
 
 #Posicion 2: Sector 
-sector = form.getvalue("sector")
-if sector != None:
+if sector:
+    sector_html = f"value=\'{sector}\'"
     list_errores.append(validarSector(sector))
 else:
+    sector_html = ""
     list_errores.append("")
 
-#Posicion 3: Nombre
-nombre = form.getvalue("nombre")
-if nombre == None:
-    list_errores.append(alerta_error % "Ingrese un nombre")
-else:
+#Posicion 3: Nombre 
+if nombre:
+    nombre_html = f"value=\'{nombre}\'"
     list_errores.append(validarNombre(nombre))
-
-#Posicion 4: Email 
-email = form.getvalue("email")
-if email == None:
-    list_errores.append(alerta_error % "Ingrese un correo")
 else:
-    list_errores.append(validarEmail(email))
+    nombre_html = ""
+    list_errores.append(alerta_error % "Ingrese un nombre")
+#Posicion 4: Email 
 
+if email:
+    email_html = f"value=\'{email}\'"
+    list_errores.append(validarEmail(email))
+else: 
+    email_html = ""
+    list_errores.append(alerta_error % "Ingrese un correo")
 #Posicion 5: Celular 
-celular = form.getvalue("celular")
+
 if (celular):
+    celular_html = f"value=\'{celular}\'"
     list_errores.append(validarCelular(celular))
 else:
+    celular_html = ""
     list_errores.append("")
 
 #Posicion 6: Contactos
-contactos = form.getlist("contactar-por")
+
 error_contactos = ""
+contactos_html = []
+redes = {'whatsapp': ["","disabled"], 'telegram':["","disabled"], 'twitter': ["","disabled"], 'instagram':["","disabled"], 'facebook':["","disabled"], 'tiktok':["","disabled"], 'otra': ["","disabled"]}
+print(contactos)
 if contactos != []:
     for contacto in contactos:
+        redes[contacto][0] = "checked"
         contacto_link = form.getvalue(contacto+"-link")
         if (contacto_link):
             error_contactos += validarRedes(contacto_link, contacto)
+            redes[contacto][1] = f"value=\'{contacto_link}\'"
         else:
             error_contactos += f"Ingrese un link para {contacto.capitalize()}<br>"
+
     if(error_contactos == ""):
         list_errores.append("")
     else:
         list_errores.append(alerta_error % error_contactos)
+
+    for valor in redes.values():
+        contactos_html.extend(valor)
 else:
     list_errores.append("")
+    contactos_html = ["","disabled",
+    "","disabled",
+    "","disabled",
+    "","disabled",
+    "","disabled",
+    "","disabled",
+    "","disabled"]
 
 
 #Posicion 7: Fecha de inicio 
-fecha_inicio = form.getvalue("dia-hora-inicio")
+
 if not(fecha_inicio):
+    fecha_inicio_html = ""
     list_errores.append(alerta_error % "Ingrese una fecha de inicio")
 else:
+    fecha_inicio_html = f"value=\'{fecha_inicio}\'"
     list_errores.append(validarFecha(fecha_inicio))
 
 #Posicion 8: Fecha de termino 
-fecha_termino = form.getvalue('dia-hora-termino')
+
 if fecha_termino:
+    fecha_termino_html = f"value=\'{fecha_termino}\'"
     list_errores.append(validarFecha(fecha_termino))
 else:
+    fecha_termino_html = ""
     list_errores.append("")
 
 #Descripcion
-descripcion = form.getvalue('descripcion-evento')
 
+if descripcion:
+    descripcion_html = descripcion
+else:
+    descripcion_html = ""
 #Posicion 9: Tema 
 """Tema
 Casos: - No se selecciona un tema
 - Se selecciona otro tema y no se escribe el tema correspondiente
 - Se selecciona otro tema y no cumple con formato"""
-tema = form.getvalue("tema")
+
 agregarNuevoTema = False
+otro_tema_html = ""
 if not(tema):
     list_errores.append(alerta_error % "Seleccione un tema")
-elif tema == "0":
+elif tema == '0':
     agregarNuevoTema = True
     #Validar otro tema
     otro_tema = form.getvalue("otro")
     if not(otro_tema):
+        otro_tema_html='<label for="otro" class="col-sm-2 col-form-label">Descripción de otro tema </label><div class="col-sm-10"><input type="text" name="otro" id="otro" class="form-control"></div>'
         list_errores.append(alerta_error % "Ingrese un tema")
     
     else:
+        otro_tema_html = f'<label for="otro" class="col-sm-2 col-form-label">Descripción de otro tema </label><div class="col-sm-10"><input type="text" name="otro" id="otro" class="form-control" value={otro_tema}></div>'
         list_errores.append(validarOtrotema(otro_tema))
 else:
     list_errores.append("")
@@ -224,7 +301,7 @@ for valor in list_errores:
 #redes_link = {'whatsapp': "", 'telegram': "", 'twitter': "", 'instagram': "", 'facebook': "", 'tiktok': "", 'otra': ""}
 #redes_enabled = {'whatsapp': "disabled", 'telegram': "disabled", 'twitter': "disabled", 'instagram': "disabled", 'facebook': "disabled", 'tiktok': "disabled", 'otra': "disabled"}
 if(validacion):
-    with open('../informar_actividad.html','r', encoding='utf-8') as template:
+    with open('informar_actividad.html','r', encoding='utf-8') as template:
         file = template.read()
         """valores = [region, comuna, sector, nombre, email, celular]
 
@@ -243,9 +320,29 @@ if(validacion):
         print(len(valores))
         file = file % tuple(valores)"""
         """Regiones, errores en region ,errores en comuna, errores en sector, errores en nombre, 5: errores en email, errores en celular, errores en redes, errores en fecha inicio
-        errores en fehca de termino, 10: temas, errores en tema, errores en fotos"""
+        errores en fehca de termino, 10: temas, errores en tema, errores en fotos
         print(file.format(options_regiones, list_errores[0],list_errores[1],list_errores[2],list_errores[3], list_errores[4],
-        list_errores[5],list_errores[6],list_errores[7],list_errores[8], options_temas,list_errores[9], list_errores[10]))
+        list_errores[5],list_errores[6],list_errores[7],list_errores[8], options_temas,list_errores[9], list_errores[10]))"""
+
+        print(file.format(options_regiones, list_errores[0],
+        options_comunas, list_errores[1],
+        sector_html, list_errores[2],
+        nombre_html, list_errores[3], 
+        email_html, list_errores[4],
+        celular_html, list_errores[5],
+        contactos_html[0], contactos_html[1],
+        contactos_html[2], contactos_html[3],
+        contactos_html[4], contactos_html[5],
+        contactos_html[6], contactos_html[7],
+        contactos_html[8], contactos_html[9],
+        contactos_html[10], contactos_html[11],
+        contactos_html[12], contactos_html[13],
+        list_errores[6],
+        fecha_inicio_html, list_errores[7],
+        fecha_termino_html, list_errores[8],
+        descripcion_html,
+        options_temas, otro_tema_html, list_errores[9], 
+        list_errores[10]))
 
 else:
     #Agregar nuevo tema a la base de datos
@@ -272,11 +369,6 @@ else:
     else:
         data = (id_actividad, foto_actividad)
         db.guardarFotos(data)
-    with open('../form_exitoso.html', 'r', encoding='utf-8') as template:
+    with open('form_exitoso.html', 'r', encoding='utf-8') as template:
         file = template.read()
         print(file)
-"""print("Validacion", validacion)
-print(list_errores)
-data = (comuna, sector, nombre, email, celular, fecha_inicio, fecha_termino, descripcion)
-print(data)"""
-#db.guardarActividad(data)
