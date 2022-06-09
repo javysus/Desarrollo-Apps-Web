@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FindAct: Comparte actividades sociales</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="../js/actividad.js"></script>
+</head>
+
+<body>
+    <!-- As a heading -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-info">
+    <a class="navbar-brand" href="index.py">FindAct</a>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="informar_actividad.py">Agregar actividad</a>
+          <a class="nav-item nav-link" href="listado_actividades.py">Ver listado de actividades</a>
+          <a class="nav-item nav-link" href="../estadisticas.html">Estadísticas</a>
+        </div>
+    </div>
+    </nav>
+
+    <div class="d-flex justify-content-center flex-nowrap">
+        <div class="container m-5 p2 border bg-light">
+            
+            <div class="d-flex mt-3 flex-row">
+                <div><h4>Información del lugar</h4> </div>
+                <div >
+                <a class="btn btn-light btn-sm button-icon" data-bs-toggle="collapse" href="#informacion-lugar" role="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up" viewBox="0 0 16 16">
+                        <path d="M3.204 11h9.592L8 5.519 3.204 11zm-.753-.659 4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
+                      </svg>
+                </a></div>
+            </div>
+            <hr>
+            <div class="collapse show" id="informacion-lugar">
+            {0}
+            </div>
+
+            <div class="d-flex mt-3 mr-3 flex-row">
+                <div> <h4>Datos del organizador</h4> </div>
+                <div >
+                    <a class="btn btn-light btn-sm button-icon" data-bs-toggle="collapse" href="#informacion-organizador" role="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up" viewBox="0 0 16 16">
+                            <path d="M3.204 11h9.592L8 5.519 3.204 11zm-.753-.659 4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
+                          </svg>
+                </a></div>
+            </div>
+            <hr>
+            <div class="collapse show" id="informacion-organizador">
+            {1}
+            <p>Contactar por: </p>
+            {2}
+            </div>
+            <div class="d-flex mt-3 mr-3 flex-row">
+                <div> <h4>Información de la actividad</h4> </div>
+                <div >
+                    <a class="btn btn-light btn-sm button-icon" data-bs-toggle="collapse" href="#informacion-actividad" role="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up" viewBox="0 0 16 16">
+                            <path d="M3.204 11h9.592L8 5.519 3.204 11zm-.753-.659 4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
+                          </svg>
+                </a></div>
+            </div>
+            <hr>
+            <div class="collapse show" id="informacion-actividad">
+            {3}
+            <p>Fotos:</p>
+            <div class="text-center">
+                {4}
+            </div>
+            
+
+        </div>
+
+        <div class="d-flex justify-content-center mt-3 mb-3">
+
+            <a href="listado_actividades.py" class="btn btn-primary">Volver al listado</a>
+            <a href="index.py" class="btn btn-primary">Volver a la portada</a>
+        </div>
+        </div>
+    </div>
+
+    <div class="modal fade" tabindex="-1" id="mostrar-imagen">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                <img id="imagen-modal" src="../media/not-found.jpg" class="rounded img-final" alt="...">
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+</body>
