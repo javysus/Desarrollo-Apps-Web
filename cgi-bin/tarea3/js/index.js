@@ -46,8 +46,6 @@ function obtenerComunas(){
             let response = xhr.responseText;
             response = JSON.parse(response);
 
-            
-
             lat_inicial = response[0][2];
             long_inicial = response[0][3];
             titulo_inicial = response[0][1] + ' fotos';

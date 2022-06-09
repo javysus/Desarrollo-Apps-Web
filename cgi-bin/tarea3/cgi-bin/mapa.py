@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 import sys
-import cgi 
 import json 
 
 from db import DB
