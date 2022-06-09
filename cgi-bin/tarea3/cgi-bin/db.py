@@ -216,7 +216,7 @@ class DB:
 
     def getCantFotosComuna(self):
         sql = '''
-        SELECT CO.nombre, COUNT(CO.nombre) AS fotos, CO.lat, CO.lng, CO.id FROM actividad AC INNER JOIN foto FO ON AC.id = FO.actividad_id LEFT JOIN comuna CO ON AC.comuna_id = CO.id GROUP BY CO.nombre ORDER BY fotos DESC;
+        SELECT CO.nombre, COUNT(CO.nombre) AS fotos, CO.lat, CO.lng, CO.id FROM actividad AC INNER JOIN foto FO ON AC.id = FO.actividad_id LEFT JOIN comuna CO ON AC.comuna_id = CO.id WHERE CO.lat IS NOT NULL GROUP BY CO.nombre ORDER BY fotos DESC;
         '''
 
         self.cursor.execute(sql)
