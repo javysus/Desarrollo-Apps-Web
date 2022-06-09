@@ -6,7 +6,7 @@ import sys
 import re
 from db import DB
 
-MAX_FILE_SIZE= 100000
+MAX_FILE_SIZE= 1000000
 alerta_error = '<div class="alert alert-danger" role="alert">%s</div>'
 #Validacion
 def validarSector(sector):
@@ -57,7 +57,7 @@ def validarRedes(red, red_social):
 def validarFoto(foto, filename):
     tipo = foto.type
     size = os.fstat(foto.file.fileno()).st_size
-    if tipo != 'image/png':
+    if tipo != 'image/png' and tipo != 'image/jpeg' and tipo != 'jpg':
         return f"Formato no válido de imagen para {filename}<br>"
     if size > MAX_FILE_SIZE:
         return f"El archivo {filename} es muy grande.<br>"
