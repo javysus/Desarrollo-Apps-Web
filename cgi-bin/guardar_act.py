@@ -57,7 +57,7 @@ def validarRedes(red, red_social):
 def validarFoto(foto, filename):
     tipo = foto.type
     size = os.fstat(foto.file.fileno()).st_size
-    if tipo != 'image/png' and tipo != 'image/jpeg' and tipo != 'jpg':
+    if tipo != 'image/png':
         return f"Formato no válido de imagen para {filename}<br>"
     if size > MAX_FILE_SIZE:
         return f"El archivo {filename} es muy grande.<br>"
