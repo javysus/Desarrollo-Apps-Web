@@ -236,7 +236,7 @@ class DB:
         self.cursor.execute(sql_alter)
 
         # Opening JSON file
-        f = open('chile.json')
+        f = open('../chile.json')
         data = json.load(f)
         for i in data:
             sql_update = f'''UPDATE comuna
@@ -246,3 +246,9 @@ class DB:
 
         self.db.commit()
         f.close()
+
+    def eliminarLatLong(self):
+        sql_alter = '''ALTER TABLE comuna DROP COLUMN lng, DROP COLUMN lat;'''
+
+        self.cursor.execute(sql_alter)
+        self.db.commit()
