@@ -163,7 +163,7 @@ function prepararGraficos(){
     }
     
     //Enviar solicitud
-    xhr.open("GET", '../cgi-bin/graficos.py');
+    xhr.open("GET", '/cgi-bin/graficos.py');
     xhr.send();
 }
 
